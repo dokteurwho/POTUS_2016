@@ -1,0 +1,5 @@
+# Installation d'alias :
+ 
+copier (si ils n'existent pas les fichiers ) (répertoire d'execution des ssh) 
+
+ou compléter  bashrc_exemple et bash_profil_exemple (en les renommant) .bashrc et .bash_profile
