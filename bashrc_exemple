@@ -1,0 +1,4 @@
+alias ll='ls -l'
+alias as1='ssh -i ~/.ssh/telecom-election.pem ec2-user@ec2-35-167-94-87.us-west-2.compute.amazonaws.com'
+alias as2='ssh -i ~/.ssh/telecom-election.pem ec2-user@ec2-35-167-81-39.us-west-2.compute.amazonaws.com'
+alias as3='ssh -i ~/.ssh/telecom-election.pem ec2-user@ec2-35-164-243-142.us-west-2.compute.amazonaws.com'
