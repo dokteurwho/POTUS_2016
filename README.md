@@ -28,7 +28,7 @@ ssh -i "AWS_02.pem" ec2-user@ec2-54-93-213-194.eu-central-1.compute.amazonaws.co
 
 ![Alt text](https://github.com/dokteurwho/POTUS_2016/blob/master/conf_security.png)
 
-* Attribuer les adresses __PRIVEES__ suivantes aux machines MONGO: 172.31.20.101, 172.31.20.100, 172.31.20.102.
+* Attribuer les adresses __PRIVEES__ suivantes aux machines MONGO: 172.31.31.101, 172.31.31.100, 172.31.31.102.
 
 ## Organisation des répertoires:
 
