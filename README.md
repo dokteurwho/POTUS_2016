@@ -1,8 +1,20 @@
 # POTUS_2016
 
+## Organisation des répertoires:
+
+```c
+[ec2-user@ip-172-31-20-191 ~]$ pwd
+/home/ec2-user
+[ec2-user@ip-172-31-20-191 ~]$ ls
+anaconda3  Anaconda3-4.0.0-Linux-x86_64.sh  certificates  POTUS
+[ec2-user@ip-172-31-20-191 ~]$ cd POTUS/
+[ec2-user@ip-172-31-20-191 POTUS]$ ls
+data_POTUS  data_POTUS.zip
+```
+
 # Connect to AWS
 
-Prerequesite: you should have a ".pem" file, this is the _secret_ private key allowing ssh connection to your instance. You can try a ssh connection "as is". 
+Prerequesite: you should have a ".pem" file, this is the _secret_ private key allowing ssh connection to your instance. You can try a ssh connection "as is".
 
 ```{r, engine='bash', count_lines}
 dhcpwifi-23-237:AWS rom$ ls
@@ -25,7 +37,7 @@ The issue is the key is no sufficiently protected. To perform a connection, you 
 
 
 ```{r, engine='bash', count_lines}
-dhcpwifi-23-237:AWS rom$ chmod 400 AWS_02.pem 
+dhcpwifi-23-237:AWS rom$ chmod 400 AWS_02.pem
 dhcpwifi-23-237:AWS rom$ ssh -i "AWS_02.pem" ubuntu@ec2-54-93-163-116.eu-central-1.compute.amazonaws.com
 Welcome to Ubuntu 16.04.1 LTS (GNU/Linux 4.4.0-57-generic x86_64)
 
@@ -38,7 +50,7 @@ Welcome to Ubuntu 16.04.1 LTS (GNU/Linux 4.4.0-57-generic x86_64)
 
 0 packages can be updated.
 0 updates are security updates.
-ubuntu@ip-172-31-XX-XX:~$ 
+ubuntu@ip-172-31-XX-XX:~$
 ```
 
 
@@ -57,4 +69,3 @@ Saving to: ‘Anaconda3-4.0.0-Linux-x86_64.sh’
 Anaconda3-4.0.0-Lin 100%[===================>] 398.44M  17.0MB/s    in 27s     
 
 2017-01-10 12:44:17 (14.7 MB/s) - ‘Anaconda3-4.0.0-Linux-x86_64.sh’ saved [417798602/417798602]
-
