@@ -19,6 +19,16 @@ ssh -i "AWS_02.pem" ec2-user@ec2-54-93-213-194.eu-central-1.compute.amazonaws.co
 
 (ec2-54-93-213-194.eu-central-1.compute.amazonaws.com) peut changer.
 
+## Pre-requis
+
+* Etre en zone __europe (Frankfurt)__ sur AWS pour s'échanger les images.
+* Donner son ID AWS pour pouvoir partager les images.
+* Attribuer à toutes les images le _même groupe de sécurité_ sous AWS.
+* Rajouter les règles suivantes dans le groupe de sécurité (INBOUND):
+https://files.slack.com/files-pri/T2D5NG6EP-F3QQ33JAW/pasted_image_at_2017_01_12_07_09_pm.png
+
+
+
 
 ## Organisation des répertoires:
 
