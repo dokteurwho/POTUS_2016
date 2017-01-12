@@ -26,7 +26,7 @@ ssh -i "AWS_02.pem" ec2-user@ec2-54-93-213-194.eu-central-1.compute.amazonaws.co
 * Attribuer à toutes les images le _même groupe de sécurité_ sous AWS.
 * Rajouter les règles suivantes dans le groupe de sécurité (INBOUND): 
 
-![alt tag](https://github.com/dokteurwho/POTUS_2016/conf_security.png)
+![Alt text](https://github.com/dokteurwho/POTUS_2016/blob/master/conf_security.png)
 
 * Attribuer les adresses __PRIVEES__ suivantes aux machines MONGO: 172.31.20.101, 172.31.20.100, 172.31.20.102.
 
@@ -68,7 +68,6 @@ The issue is the key is no sufficiently protected. To perform a connection, you 
 
 ```{r, engine='bash', count_lines}
 dhcpwifi-23-237:AWS rom$ chmod 400 telecom-election2.pem
-dhcpwifi-23-237:.ssh stephanetrublereau$ chmod 400 telecom-election2.pem
 dhcpwifi-22-222:.ssh stephanetrublereau$ ssh -i "telecom-election2.pem" ec2-user@ec2-54-93-97-49.eu-central-1.compute.amazonaws.com
 Last login: Thu Jan 12 18:24:25 2017 from dhcpwifi-22-222.enst.fr
 
