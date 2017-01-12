@@ -67,18 +67,15 @@ The issue is the key is no sufficiently protected. To perform a connection, you 
 
 
 ```{r, engine='bash', count_lines}
-dhcpwifi-23-237:AWS rom$ chmod 400 AWS_02.pem
-dhcpwifi-23-237:AWS rom$ ssh -i "AWS_02.pem" ubuntu@ec2-54-93-163-116.eu-central-1.compute.amazonaws.com
-Welcome to Ubuntu 16.04.1 LTS (GNU/Linux 4.4.0-57-generic x86_64)
+dhcpwifi-23-237:AWS rom$ chmod 400 telecom-election2.pem
+dhcpwifi-22-222:.ssh stephanetrublereau$ ssh -i "telecom-election2.pem" ec2-user@ec2-54-93-97-49.eu-central-1.compute.amazonaws.com
+Last login: Thu Jan 12 18:24:25 2017 from dhcpwifi-22-222.enst.fr
 
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
+       __|  __|_  )
+       _|  (     /   Amazon Linux AMI
+      ___|\___|___|
 
-  Get cloud support with Ubuntu Advantage Cloud Guest:
-    http://www.ubuntu.com/business/services/cloud
-
-0 packages can be updated.
-0 updates are security updates.
-ubuntu@ip-172-31-XX-XX:~$
-```
+https://aws.amazon.com/amazon-linux-ami/2016.09-release-notes/
+5 package(s) needed for security, out of 9 available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-172-31-28-197 ~]$ 
