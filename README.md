@@ -68,6 +68,7 @@ The issue is the key is no sufficiently protected. To perform a connection, you 
 
 ```{r, engine='bash', count_lines}
 dhcpwifi-23-237:AWS rom$ chmod 400 telecom-election2.pem
+dhcpwifi-23-237:.ssh stephanetrublereau$ chmod 400 telecom-election2.pem
 dhcpwifi-22-222:.ssh stephanetrublereau$ ssh -i "telecom-election2.pem" ec2-user@ec2-54-93-97-49.eu-central-1.compute.amazonaws.com
 Last login: Thu Jan 12 18:24:25 2017 from dhcpwifi-22-222.enst.fr
 
