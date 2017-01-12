@@ -24,7 +24,10 @@ ssh -i "AWS_02.pem" ec2-user@ec2-54-93-213-194.eu-central-1.compute.amazonaws.co
 * Etre en zone __europe (Frankfurt)__ sur AWS pour s'échanger les images.
 * Donner son ID AWS pour pouvoir partager les images.
 * Attribuer à toutes les images le _même groupe de sécurité_ sous AWS.
-* Rajouter les règles suivantes dans le groupe de sécurité (INBOUND): ![alt tag](POTUS_2016/Pasted image at 2017_01_12 07_09 PM.png) 
+* Rajouter les règles suivantes dans le groupe de sécurité (INBOUND): 
+
+![alt tag](https://github.com/dokteurwho/POTUS_2016/Pasted%20image%20at%202017_01_12%2007_09%20PM.png) 
+
 * Attribuer les adresses __PRIVEES__ suivantes aux machines MONGO: 172.31.20.101, 172.31.20.100, 172.31.20.102.
 
 ## Organisation des répertoires:
