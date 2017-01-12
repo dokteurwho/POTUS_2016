@@ -1,8 +1,28 @@
 # POTUS_2016
 
+## Organisation des machines:
+
+Trois instances MONGO qui forment replica-set:
+
+* replica-set/172.31.31.100:27017,172.31.31.101:27017,172.31.31.102:27017
+
+Une instance FRONT qui contient:
+
+* un notebook python qui permet de jouer avec la base.
+* les fichiers avec les états.
+
+Il convient de se connecter à l'instance FRONT pour administrer MONGO.
+
+```{r, engine='bash', count_lines}
+ssh -i "AWS_02.pem" ec2-user@ec2-54-93-213-194.eu-central-1.compute.amazonaws.com
+```
+
+(ec2-54-93-213-194.eu-central-1.compute.amazonaws.com) peut changer.
+
+
 ## Organisation des répertoires:
 
-```c
+```{r, engine='bash', count_lines}
 [ec2-user@ip-172-31-20-191 ~]$ pwd
 /home/ec2-user
 [ec2-user@ip-172-31-20-191 ~]$ ls
@@ -52,20 +72,3 @@ Welcome to Ubuntu 16.04.1 LTS (GNU/Linux 4.4.0-57-generic x86_64)
 0 updates are security updates.
 ubuntu@ip-172-31-XX-XX:~$
 ```
-
-
-wget http://repo.continuum.io/archive/Anaconda3-4.0.0-Linux-x86_64.sh
---2017-01-10 12:43:50--  http://repo.continuum.io/archive/Anaconda3-4.0.0-Linux-x86_64.sh
-Resolving repo.continuum.io (repo.continuum.io)... 104.16.19.10, 104.16.18.10, 2400:cb00:2048:1::6810:120a, ...
-Connecting to repo.continuum.io (repo.continuum.io)|104.16.19.10|:80... connected.
-HTTP request sent, awaiting response... 301 Moved Permanently
-Location: https://repo.continuum.io/archive/Anaconda3-4.0.0-Linux-x86_64.sh [following]
---2017-01-10 12:43:50--  https://repo.continuum.io/archive/Anaconda3-4.0.0-Linux-x86_64.sh
-Connecting to repo.continuum.io (repo.continuum.io)|104.16.19.10|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 417798602 (398M) [application/octet-stream]
-Saving to: ‘Anaconda3-4.0.0-Linux-x86_64.sh’
-
-Anaconda3-4.0.0-Lin 100%[===================>] 398.44M  17.0MB/s    in 27s     
-
-2017-01-10 12:44:17 (14.7 MB/s) - ‘Anaconda3-4.0.0-Linux-x86_64.sh’ saved [417798602/417798602]
