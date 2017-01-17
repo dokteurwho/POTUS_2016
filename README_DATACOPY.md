@@ -51,3 +51,35 @@ data_POTUS  data_POTUS.zip  __MACOSX
 ...
 [ec2-user@ip-172-31-20-191 data_POTUS]$
 ```
+Script de remplacement des ; en ,
+sur le repertoire contenant les fichiers data.txt :
+```c
+/home/ec2-user/POTUS/data_POTUS
+vi remplace
+```
+i
+```c
+#!/bin/bash
+for file in *.txt
+do
+  echo "Traitement de $file ..."
+  sed -i -e "s/;/,/g" "$file"
+done
+```
+Esc + :wq
+
+Rendre executable le script
+```c
+sudo chmod +x remplace.sh
+```
+Execution du script moins de 2 minutes
+
+```c
+[ec2-user@ip-172-31-26-115 data_POTUS]$ ./remplace.sh
+Traitement de 2016-11-08-20-00_Minnesota.txt ...
+Traitement de 2016-11-08-20-01_Alabama.txt ...
+ ...
+Traitement de 2016-11-08-20-57_Kansas.txt ...
+Traitement de 2016-11-08-20-58_Maine.txt ...
+Traitement de 2016-11-08-20-59_Oregon.txt ...
+```
