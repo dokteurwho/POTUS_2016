@@ -1,1 +1,21 @@
-mongoimport --db POTUS --collection col1 --file 2016-11-08-20-01_Utah.txt  --host replica-set/172.31.31.100:27017,172.31.31.101:27017,172.31.31.102:27017 --fields DATE,STATE,CANDIDATE --type csv
+
+## dans le code python DIR = "~/POTUS/data_POTUS/"
+## auquel il faudra ajouter le file_name pour obtenir le $2 du script
+
+## Installer jupyter notebook sur AWS
+vi import.bash
+
+```
+i
+
+#!/bin/bash -v
+
+col=$1
+filename=$2
+mongoimport --db POTUS --collection $col --file $filename --host replica-set/172.31.31.100:27017,172.31.31.101:27017,172.31.31.102:27017 --fields DATE,STATE,CANDIDATE --type csv
+exit 0
+
+Esc + :wq
+```
+
+
