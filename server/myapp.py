@@ -72,11 +72,11 @@ def update_results():
         if df_results.loc[i, "Trump"] > df_results.loc[i, "Clinton"]:
             df_results.loc[i, "party"] = "republican"
             # This is just a way to sort in a proper way the result
-            df_results.loc[i, "added"] =  - len(df_results) + i
+            df_results.loc[i, "added"] =  500 - df_results.loc[i, "voters"]
         elif df_results.loc[i, "Trump"] < df_results.loc[i, "Clinton"]:
             df_results.loc[i, "party"] = "democrat"
             # This is just a way to sort in a proper way the result
-            df_results.loc[i, "added"] = len(df_results) - i
+            df_results.loc[i, "added"] = -500 + df_results.loc[i, "voters"]
     #print(df_results)
 
     # Sort the DF to democrats, non then republican
