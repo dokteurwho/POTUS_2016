@@ -138,6 +138,7 @@ wedge_other = p.annular_wedge(0, 0, inner_radius, outer_radius=[],
 
 # circular axes and lables
 labels = np.arange(0, MAX_VOTERS, MAX_VOTERS//4)
+max_axes = labels[3]
 radii = outer_radius * labels / MAX_VOTERS + inner_radius
 
 circular_axes = p.circle(0, 0, radius=radii,
@@ -197,23 +198,27 @@ def callback():
     # df_results.state
     state.data = new_data
 
-    new_data = dict()
     delta = (df_results["angle_1"] - df_results["angle_0"]) / 2
-    new_data['outer_radius'] = outer_radius * df_results["Trump"] / MAX_VOTERS + inner_radius
+
+    new_data = dict()
+    total = np.minimum(df_results["Trump"], max_axes)
+    new_data['outer_radius'] = outer_radius * total / MAX_VOTERS + inner_radius
     new_data['start_angle'] = np.array(df_results["angle_0"]) + delta + 0.01
     new_data['end_angle'] = np.array(df_results["angle_0"]) + delta + 0.02
     # df_results.state
     wedge_trump.data = new_data
 
     new_data = dict()
-    new_data['outer_radius'] = outer_radius * df_results["Clinton"] / MAX_VOTERS + inner_radius
+    total = np.minimum(df_results["Clinton"], max_axes)
+    new_data['outer_radius'] = outer_radius * total / MAX_VOTERS + inner_radius
     new_data['start_angle'] = np.array(df_results["angle_0"]) + delta - 0.01
     new_data['end_angle'] = np.array(df_results["angle_0"]) + delta
     # df_results.state
     wedge_clinton.data = new_data
 
     new_data = dict()
-    new_data['outer_radius'] = outer_radius * df_results["Other"] / MAX_VOTERS + inner_radius
+    total = np.minimum(df_results["Other"], max_axes)
+    new_data['outer_radius'] = outer_radius * total / MAX_VOTERS + inner_radius
     new_data['start_angle'] = np.array(df_results["angle_0"]) + delta - 0.02
     new_data['end_angle'] = np.array(df_results["angle_0"]) + delta - 0.01
     # df_results.state
@@ -242,9 +247,13 @@ def callback():
     new_data['text'] = [str_res]
     results_display.data = new_data
 
+    return 0
+
 # add a button widget and configure with the call back
 button = Button(label="Refresh")
 button.on_click(callback)
 
+
+curdoc().add_periodic_callback(callback, 5000)
 # put the button and plot in a layout and add to the document
 curdoc().add_root(column(button, p))
