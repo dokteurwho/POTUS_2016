@@ -15,7 +15,15 @@ PATH_VOTERS = "electeurs.csv"
 # MAX_VOTERS must contain the maximum of citizen voting for 1 candidate
 # Calfifornia, 8 753 788 for Clinton.
 MAX_VOTERS = 10000000
-REMOTE_DB_IP = "35.156.198.242"
+
+# Mongo
+REMOTE_DB_IP = "35.157.38.23"
+#Addresses IP des 3 instances:
+DB_IP = ["172.31.31.100", "172.31.31.101", "172.31.31.102"]
+#Nom du replica set:
+REPLICA_SET = "replica-set"
+
+REPLICA = "{}/{}:27017,{}:27017,{}:27017".format(REPLICA_SET, DB_IP[0], DB_IP[1], DB_IP[2])
 MONGO_CLI = "mongodb://{}:27017".format(REMOTE_DB_IP)
 
 # Initialize df_caneva storing state names, state ID and number of voters.
