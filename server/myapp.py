@@ -17,7 +17,7 @@ df_results["Clinton"] = 0
 df_results["Trump"] = 0
 df_results["Other"] = 0
 df_results["added"] = 0
-# This is an help to draw chart proportional to voters.
+# This is an helper to draw chart proportional to voters.
 df_results["weight"] = df_results["voters"] / (df_results["voters"].sum())
 
 # Basic Angle for draw
@@ -96,17 +96,11 @@ p.ygrid.grid_line_color = None
 p.logo = None
 p.toolbar_location = None
 
-
 # Annular wedges, with 1 color per party.
 wedge = p.annular_wedge(x=0, y=0,
                           inner_radius=inner_radius, outer_radius=outer_radius,
                           start_angle=[], end_angle=[], fill_color=[],
                           color="white").data_source
-
-# The name of the state
-state = p.text(x=[], y=[], text=[], angle=[],
-             text_font_size="7pt", text_align="center",
-             text_baseline="middle").data_source
 
 # # small wedges
 wedge_trump = p.annular_wedge(0, 0, inner_radius, outer_radius=[],
@@ -126,15 +120,25 @@ wedge_other = p.annular_wedge(0, 0, inner_radius, outer_radius=[],
                            color=candidate_color['Other'],
                            fill_alpha=0.5).data_source
 
+# circular axes and lables
+labels = np.arange(0, MAX_VOTERS, MAX_VOTERS//4)
+radii = outer_radius * labels / MAX_VOTERS + inner_radius
 
-#                 -big_angle+angles+5*small_angle, -big_angle+angles+6*small_angle,
-#                 color=candidate_color['Penicillin'])
-# p.annular_wedge(0, 0, inner_radius, rad(df.streptomycin),
-#                 -big_angle+angles+3*small_angle, -big_angle+angles+4*small_angle,
-#                 color=candidate_color['Streptomycin'])
-# p.annular_wedge(0, 0, inner_radius, rad(df.neomycin),
-#                 -big_angle+angles+1*small_angle, -big_angle+angles+2*small_angle,
-#                 color=candidate_color['Neomycin'])
+circular_axes = p.circle(0, 0, radius=radii,
+                         fill_color=None, line_color="white").data_source
+
+p.text(0, radii[:-1], [str(r) for r in labels[:-1]],
+       text_font_size="8pt", text_align="center", text_baseline="middle")
+
+# The name of the state
+state = p.text(x=[], y=[], text=[], angle=[],
+             text_font_size="7pt", text_align="center",
+             text_baseline="middle").data_source
+
+# # The name of the state
+# results_display = p.text(x=0, y=0, text="Hello",
+#              text_font_size="14pt", text_align="center",
+#              text_baseline="middle").data_source
 
 # create a callback that will add a number in a random location
 def callback():
@@ -198,6 +202,29 @@ def callback():
     new_data['end_angle'] = np.array(df_results["angle_0"]) + delta - 0.01
     # df_results.state
     wedge_other.data = new_data
+
+    # Jusr redraw axes
+    circular_axes.data = None
+
+    # Winner projection
+    tmp_results = df_results.groupby("party")["voters"].sum()
+
+    if "none" not in df_results["party"]:
+        str_res = "Final result: "
+    else:
+        str_res = "Projection: "
+
+    if "democrat" in tmp_results and "republican" in tmp_results:
+        if tmp_results["democrat"] >  tmp_results["republican"]:
+            str_res += "Clinton."
+        else:
+            str_res += "Trump."
+    else:
+        str_res = "Result"
+
+    new_data = dict()
+    new_data['text'] = [str_res]
+    results_display.data = new_data
 
 # add a button widget and configure with the call back
 button = Button(label="Refresh")
