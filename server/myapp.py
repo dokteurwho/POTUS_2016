@@ -5,60 +5,76 @@ from random import random
 from bokeh.layouts import column
 from bokeh.models import Button
 from bokeh.plotting import figure, curdoc
-
 import pandas as pd
 import numpy as np
+import pymongo
 
-# Initialize DF containing the results.
-df_electeurs = pd.read_csv("electeurs.csv", sep=";", names=["state", "voters"], skiprows=1)
-df_results = df_electeurs.copy()
-df_results["party"] = "none"
-df_results["Clinton"] = 0
-df_results["Trump"] = 0
-df_results["Other"] = 0
-df_results["added"] = 0
+# Constants are here.
+PATH_VOTERS = "electeurs.csv"
+
+# MAX_VOTERS must contain the maximum of citizen voting for 1 candidate
+# Calfifornia, 8 753 788 for Clinton.
+MAX_VOTERS = 10000000
+REMOTE_DB_IP = "35.156.198.242"
+MONGO_CLI = "mongodb://{}:27017".format(REMOTE_DB_IP)
+
+# Initialize df_caneva storing state names, state ID and number of voters.
+df_electeurs = pd.read_csv(PATH_VOTERS, sep=";",
+                           names=["state", "voters", "state_id"], skiprows=1,
+                           encoding="utf-8")
+df_caneva = df_electeurs.copy()
+# Set everything to 0.
+df_caneva["party"] = "none"
+df_caneva["added"] = 0
 # This is an helper to draw chart proportional to voters.
-df_results["weight"] = df_results["voters"] / (df_results["voters"].sum())
+df_caneva["weight"] = df_caneva["voters"] / (df_caneva["voters"].sum())
 
-# Basic Angle for draw
-big_angle = 2.0 * np.pi / (len(df_results) + 1)
+#  Angle for draw the chart
+big_angle = 2.0 * np.pi / (len(df_caneva) + 1)
 
-MAX_VOTERS = 20000000
-
-# For test only
-i = 0
+print("Connecting to {}".format(MONGO_CLI))
+mongo_client = pymongo.MongoClient(MONGO_CLI)
+print("Data base are:")
+print(mongo_client.database_names())
 
 def update_results():
     '''
     This will update the df_results df.
     '''
     global df_results
-    global i
 
-    if df_results.loc[i*2, "party"] == "none":
-        df_results.loc[i*2, "party"] = "republican"
-        df_results.loc[i*2, "added"] = len(df_results) - i
-        df_results.loc[i*2, "Clinton"] = i * 450000 + 120000
-        df_results.loc[i*2, "Trump"] = i * 400000 + 110000
-        df_results.loc[i*2, "Other"] = i * 50000 + 11000
-    if df_results.loc[i*2 + 1, "party"] == "none":
-        df_results.loc[i*2 + 1, "party"] = "democrat"
-        df_results.loc[i*2 + 1, "added"] = - len(df_results) + i
-        df_results.loc[i*2+1, "Clinton"] = i * 400000 + 110000
-        df_results.loc[i*2+1, "Trump"] = i * 500000 + 120000
-        df_results.loc[i*2+1, "Other"] = i * 50000 + 11000
+    # Get DB content.
+    print("Refresh ...")
+    db_content = mongo_client.POTUS.synthese.find()
+
+    # Create a DF with DB content
+    dic_election_list =[]
+    for col in db_content:
+        row = [col['state'], col['Trump'], col['Clinton'], col['Other']]
+        dic_election_list.append(row)
+    df_db = pd.DataFrame(dic_election_list,
+                         columns=["state_id", "Trump", "Clinton", "Other"])
+
+    # Merge with caneva DF
+    df_results = pd.merge(df_caneva, df_db, how='left', on=["state_id"]).fillna(0)
+
+    # Set the wining party
+    for i in range(len(df_results)):
+
+        if df_results.loc[i, "Trump"] > df_results.loc[i, "Clinton"]:
+            df_results.loc[i, "party"] = "republican"
+            # This is just a way to sort in a proper way the result
+            df_results.loc[i, "added"] =  - len(df_results) + i
+        elif df_results.loc[i, "Trump"] < df_results.loc[i, "Clinton"]:
+            df_results.loc[i, "party"] = "democrat"
+            # This is just a way to sort in a proper way the result
+            df_results.loc[i, "added"] = len(df_results) - i
+    #print(df_results)
 
     # Sort the DF to democrats, non then republican
-    df_results = df_results.sort_values(["party","added"], ascending=[True, True])
+    df_results = df_results.sort_values(["party", "added"], ascending=[True, True])
     # Reindex the df to make it effective
     df_results.index = range(len(df_results))
-
-    if i < 25:
-        i +=1
-    else:
-        i=0
-
-    return 0
 
 # Here we go in the layer part.
 
@@ -70,8 +86,8 @@ party_color2 = {
 }
 
 candidate_color = {
-    "Trump" :   "#c64737",
-    "Clinton" : "#0d3362",
+    "Clinton" :   "#C64737",
+    "Trump" : "#0D3362",
     "Other" :  "black",
 }
 
