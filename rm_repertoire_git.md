@@ -1,6 +1,8 @@
 ## Suppression d'un repertoire git
 ### 1- Suppression des fichiers
+
 Ouvrir un terminal
+
 Se mettre sous le repertoire dont il faut supprimer les fichiers : 
 ```
 > cd /POTUS_2016/notebooks/
@@ -25,5 +27,5 @@ Prise en compte des modifs par git
 Il reste à supprimer le repertoire en local
 ```
 > cd ..
-> rm -r notebooks2
+> rm -r notebooks
 ```
