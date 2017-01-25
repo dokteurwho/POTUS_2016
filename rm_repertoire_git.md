@@ -3,7 +3,7 @@
 Ouvrir un terminal
 Se mettre sous le repertoire dont il faut supprimer les fichiers : 
 ```
-cd /POTUS_2016/notebooks/
+> cd /POTUS_2016/notebooks/
 ```
 Supprimer les fichiers type .ipynb
 ```
